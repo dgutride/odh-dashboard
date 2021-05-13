@@ -5,7 +5,7 @@ const getBackendURL = (path: string): string => {
   // if (!DEV_MODE) {
   //   return path;
   // }
-  return `https://odh-dashboard-test-odh.apps.uxd-os-research.shz4.p1.openshiftapps.com/${path}`;
+  return `https://odh-dashboard-test-odh.apps.uxd-os-research.shz4.p1.openshiftapps.com${path}`;
  // return `${window.location.protocol}//${window.location.hostname}:${API_PORT}${path}`;
 };
 
