@@ -187,7 +187,7 @@ module.exports = env => {
         library: { type: "var", name: "odh" },
         filename: "odhEntry.js",
         exposes: {
-          "./App": path.resolve(RELATIVE_DIRNAME, './src/app/App'),
+          "./Launcher": path.resolve(RELATIVE_DIRNAME, './src/app/Launcher'),
         },
         shared: {
           ...deps,
