@@ -33,7 +33,14 @@ module.exports = merge(
     mode: 'production',
     devtool: 'source-map',
     optimization: {
-      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+      concatenateModules: false,
+      splitChunks: {
+        cacheGroups: {
+          default: false,
+        }
+      },
+      runtimeChunk: false,
     },
     plugins: [
       new MiniCssExtractPlugin({

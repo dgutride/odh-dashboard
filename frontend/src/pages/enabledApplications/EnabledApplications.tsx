@@ -10,7 +10,7 @@ import QuickStarts from '../../app/QuickStarts';
 import './EnabledApplications.scss';
 
 const description = `Launch your enabled applications or get started with quick start instructions
- and tasks.`;
+ and tasks...`;
 
 type EnabledApplicationsInnerProps = {
   loaded: boolean;

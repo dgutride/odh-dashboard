@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { setupWebpackDotenvFilesForEnv } = require('./dotenv');
+const { ModuleFederationPlugin } = require("webpack").container;
 
 const RELATIVE_DIRNAME = process.env._ODH_RELATIVE_DIRNAME;
 const IS_PROJECT_ROOT_DIR = process.env._ODH_IS_PROJECT_ROOT_DIR;
@@ -12,6 +13,7 @@ const SRC_DIR = process.env._ODH_SRC_DIR;
 const COMMON_DIR = process.env._ODH_COMMON_DIR;
 const DIST_DIR = process.env._ODH_DIST_DIR;
 const OUTPUT_ONLY = process.env._ODH_OUTPUT_ONLY;
+const deps = require("../package.json").dependencies;
 
 if (OUTPUT_ONLY !== true) {
   console.info(
@@ -155,6 +157,15 @@ module.exports = env => {
       path: DIST_DIR,
       publicPath: PUBLIC_PATH
     },
+    optimization: {
+      concatenateModules: false,
+      splitChunks: {
+        cacheGroups: {
+          default: false,
+        }
+      },
+      runtimeChunk: false,
+    },
     plugins: [
       ...setupWebpackDotenvFilesForEnv({ directory: RELATIVE_DIRNAME, isRoot: IS_PROJECT_ROOT_DIR }),
       new HtmlWebpackPlugin({
@@ -170,7 +181,66 @@ module.exports = env => {
           { from: path.join(SRC_DIR, 'manifest.json'), to: path.join(DIST_DIR), noErrorOnMissing: true },
           { from: path.join(SRC_DIR, 'robots.txt'), to: path.join(DIST_DIR), noErrorOnMissing: true }
         ]
-      })
+      }),
+      new ModuleFederationPlugin({
+        name: "odh",
+        library: { type: "var", name: "odh" },
+        filename: "odhEntry.js",
+        exposes: {
+          "./App": path.resolve(RELATIVE_DIRNAME, './src/app/App'),
+        },
+        shared: {
+          ...deps,
+          "react": {
+            eager: true,
+            singleton: true,
+          },
+          "react-router": {
+            eager: true,
+            singleton: true,
+          },
+          "redux": {
+            eager: true,
+            singleton: true,
+          },
+          "react-redux": {
+            eager: true,
+            singleton: true,
+          },
+          "redux-thunk": {
+            eager: true,
+            singleton: true,
+          },
+          "react-router-dom": {
+            eager: true,
+            singleton: true,
+          },
+          "react-dom": {
+            eager: true,
+            singleton: true,
+          },
+          "@patternfly/patternfly": {
+            eager: true,
+            singleton: true,
+          },
+          "@patternfly/react-core": {
+            eager: true,
+            singleton: true,
+          },
+          "@patternfly/react-icons": {
+            eager: true,
+            singleton: true,
+          },
+          "@patternfly/react-styles": {
+            eager: true,
+            singleton: true,
+          },
+          "axios": {
+            eager: true,
+            singleton: true,
+          },
+        },
+      }),
     ],
     resolve: {
       extensions: ['.js', '.ts', '.tsx', '.jsx'],
