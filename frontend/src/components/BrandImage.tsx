@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { Brand } from '@patternfly/react-core';
 import { RocketIcon } from '@patternfly/react-icons';
+import { IMAGE_URL } from '../utilities/const';
 
 type BrandImageProps = {
   src: string;
@@ -11,6 +12,7 @@ type BrandImageProps = {
 
 const BrandImage: React.FC<BrandImageProps> = ({ src, className, ...props }) => {
   const [isSrcValid, setIsSrcValid] = React.useState<boolean>(true);
+  const source = IMAGE_URL ? `${IMAGE_URL}/${src}` : src;
 
   const brandClasses = classNames('odh-card__header-brand', className, {
     'pf-c-brand': !isSrcValid,
@@ -22,7 +24,7 @@ const BrandImage: React.FC<BrandImageProps> = ({ src, className, ...props }) => 
   }, [src]);
 
   return isSrcValid ? (
-    <Brand {...props} className={brandClasses} src={src} onError={() => setIsSrcValid(false)} />
+    <Brand {...props} className={brandClasses} src={source} onError={() => setIsSrcValid(false)} />
   ) : (
     <RocketIcon className={brandClasses} {...props} />
   );

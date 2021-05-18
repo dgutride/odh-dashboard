@@ -187,56 +187,58 @@ module.exports = env => {
         library: { type: "var", name: "odh" },
         filename: "odhEntry.js",
         exposes: {
-          "./Launcher": path.resolve(RELATIVE_DIRNAME, './src/app/Launcher'),
+          "./EnabledApplications": path.resolve(RELATIVE_DIRNAME, './src/app/WrappedEnabledApplications'),
+          "./ExploreApplications": path.resolve(RELATIVE_DIRNAME, './src/app/WrappedExploreApplications'),
+          "./LearningCenter": path.resolve(RELATIVE_DIRNAME, './src/app/WrappedLearningCenter'),
         },
         shared: {
           ...deps,
           "react": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "react-router": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "redux": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "react-redux": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "redux-thunk": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "react-router-dom": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "react-dom": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "@patternfly/patternfly": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "@patternfly/react-core": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "@patternfly/react-icons": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "@patternfly/react-styles": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
           "axios": {
-            eager: true,
+            eager: false,
             singleton: true,
           },
         },
