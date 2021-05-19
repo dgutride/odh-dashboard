@@ -8,9 +8,10 @@ module.exports = async (fastify: KubeFastifyInstance) => {
   fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
     return listComponents(fastify, request)
       .then((res) => {
-        if (DEV_MODE) {
-          addCORSHeader(request, reply);
-        }
+        // if (DEV_MODE) {
+        // always add cors headers
+        addCORSHeader(request, reply);
+        //}
         return res;
       })
       .catch((res) => {

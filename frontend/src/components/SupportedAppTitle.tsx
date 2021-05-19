@@ -3,6 +3,7 @@ import * as classNames from 'classnames';
 import { CardTitle, Tooltip } from '@patternfly/react-core';
 import { ODHApp } from '../types';
 import { isRedHatSupported } from '../utilities/utils';
+import { IMAGE_URL } from '../utilities/const';
 
 type SupportedAppTitleProps = {
   odhApp: ODHApp;
@@ -20,7 +21,7 @@ const SupportedAppTitle: React.FC<SupportedAppTitleProps> = ({ odhApp, showProvi
         <Tooltip content="Red Hat certified and supported">
           <img
             className={supportedImageClasses}
-            src="../images/CheckStar.svg"
+            src={IMAGE_URL ? `${IMAGE_URL}/images/CheckStar.svg` : '../images/CheckStar.svg'}
             alt="Red Hat certified and supported"
           />
         </Tooltip>
