@@ -31,8 +31,10 @@
     "test:lint": "eslint --max-warnings 0 --ext .js,.ts,.jsx,.tsx ./src",
     "test:type-check": "tsc --noEmit",
     "test:jest": "jest",
+    "test:jest:coverage": "jest --coverage",
     "test:unit": "npm run test:jest",
     "test:cypress-ci": "npx concurrently -P -k -s first \"npm run cypress:server:build && npm run cypress:server\" \"npx wait-on tcp:127.0.0.1:9001 && npm run cypress:run:mock -- {@}\" -- ",
+    "test:cypress-coverage-ci": "npx concurrently -P -k -s first \"npm run cypress:server:build-coverage && npm run cypress:server\" \"npx wait-on tcp:127.0.0.1:9001 && npm run cypress:run:mock -- {@}\" -- ",
     "cypress:open": "cypress open --project src/__tests__/cypress",
     "cypress:run": "cypress run -b chrome --project src/__tests__/cypress",
     "cypress:open:mock": "MOCK=1 WS_PORT=9002 npm run cypress:open -- ",
@@ -40,6 +42,7 @@
     "cypress:open:record": "RECORD=1 npm run cypress:open",
     "cypress:run:record": "RECORD=1 npm run cypress:run && npm run cypress:format",
     "cypress:server:build": "ODH_DIST_DIR=./public-cypress POLL_INTERVAL=9999999 FAST_POLL_INTERVAL=9999999 WS_HOSTNAME=localhost:9002 npm run build",
+    "cypress:server:build-coverage": "export COVERAGE=true; ODH_DIST_DIR=./public-cypress POLL_INTERVAL=9999999 FAST_POLL_INTERVAL=9999999 WS_HOSTNAME=localhost:9002 npm run build",
     "cypress:server": "serve ./public-cypress -p 9001 -s -L",
     "cypress:server:dev": "POLL_INTERVAL=9999999 FAST_POLL_INTERVAL=9999999 ODH_PORT=9001 WS_HOSTNAME=localhost:9002 npm run start:dev",
     "cypress:format": "prettier --write src/__tests__/**/*.snap.json"
@@ -85,6 +88,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
+    "@cypress/code-coverage": "^3.12.33",
+    "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
     "@testing-library/cypress": "^10.0.1",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/jest-dom": "^6.3.0",

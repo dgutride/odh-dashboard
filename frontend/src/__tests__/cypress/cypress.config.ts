@@ -34,6 +34,11 @@ export default defineConfig({
       : `cypress/e2e/**/*.(s)?cy.ts`,
     experimentalInteractiveRunEvents: true,
     setupNodeEvents(on, config) {
+      require('@cypress/code-coverage/task')(on, config);
+      // include any other plugin code...
+
+      // It's IMPORTANT to return the config object
+      // with any changed environment variables
       setupWebsockets(on, config);
       on('task', {
         readJSON(filePath: string) {
@@ -75,6 +80,7 @@ export default defineConfig({
           }
         });
       }
+      return config;
     },
   },
 });

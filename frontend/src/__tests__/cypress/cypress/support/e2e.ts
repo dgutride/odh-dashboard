@@ -16,6 +16,7 @@
 import './commands';
 import chaiSubset from 'chai-subset';
 import { addCommands as webSocketsAddCommands } from './websockets';
+import '@cypress/code-coverage/support';
 
 chai.use(chaiSubset);
 

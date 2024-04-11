@@ -34,4 +34,13 @@ module.exports = {
   snapshotSerializers: [],
 
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/unit/jest.setup.ts'],
+
+  coverageReporters: ['lcov', 'json'],
+  collectCoverageFrom: ['**/*.ts', '**/*.tsx'],
+  coveragePathIgnorePatterns: [
+    "__mocks__",
+    "node_modules",
+    "__tests__"
+  ],
+  coverageDirectory: './coverage/jest',
 };
